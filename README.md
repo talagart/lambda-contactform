@@ -122,9 +122,31 @@ Include the following HTML code in your static website:
 
 ### JavaScript Function
 Include the JavaScript Function in your static website.
+
+```javascript
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  fetch('YOUR_API_GATEWAY_ENDPOINT', {
+    method: 'POST',
+    body: JSON.stringify({ name, email, message }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => alert('Message sent successfully'))
+  .catch(error => console.error('Error:', error));
+});
+
+```
+
 Replace YOUR_API_GATEWAY_ENDPOINT with the invoke URL from API Gateway.
 
-####Cleanup
+#### Cleanup
 To avoid any unexpected charges, make sure to delete all the AWS resources created during this project:
 
 Delete the Lambda function
@@ -132,7 +154,7 @@ Remove the API Gateway
 Remove any SES configurations
 
 
-####License
+#### License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 This README includes all the necessary steps for setting up and deploying the serverless contact form using the AWS Management Console, without assuming any prior use of the AWS CLI. It also follows best practices for a GitHub README, making it easy for users to follow along and implement the solution.
